@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
         - name: thule
-          image: 301922485551.dkr.ecr.ap-southeast-2.amazonaws.com/dglite-backend:production
+          image: 301922485551.dkr.ecr.ap-southeast-2.amazonaws.com/dg-lite-backend:production
           volumeMounts:
             - name: secrets
               mountPath: "/var/secrets/"

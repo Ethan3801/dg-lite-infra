@@ -6,16 +6,16 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     ingress.kubernetes.io/force-ssl-redirect: "true"
     kubernetes.io/tls-acme: "true"
-    external-dns.alpha.kubernetes.io/hostname: api.dev.dglite.com
+    external-dns.alpha.kubernetes.io/hostname: api.dev.dg-lite.com
     external-dns.alpha.kubernetes.io/ttl: 10
 spec:
   tls:
     - secretName: thule
       hosts:
-        - api.dev.dglite.com
-        - api.dglite-aws.danward.me
+        - api.dev.dg-lite.com
+        - api.dg-lite-aws.danward.me
   rules:
-    - host: api.dev.dglite.com
+    - host: api.dev.dg-lite.com
       http:
         paths:
           - pathType: Prefix
@@ -25,7 +25,7 @@ spec:
                 name: thule
                 port:
                   number: 3000
-    - host: api.dglite-aws.danward.me
+    - host: api.dg-lite-aws.danward.me
       http:
         paths:
           - pathType: Prefix

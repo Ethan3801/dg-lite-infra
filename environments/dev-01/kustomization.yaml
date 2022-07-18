@@ -3,16 +3,16 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - ../../base/
-  - ./dglite-db-01/dglitedb01-secret.yaml
-  - ./dglite-frontend/dglite-frontend-basic-auth.yaml
-  - ./dglite-frontend/dglite-frontend-ingress.yaml
+  - ./dg-lite-db-01/dg-lite-db01-secret.yaml
+  - ./dg-lite-frontend/dg-lite-frontend-basic-auth.yaml
+  - ./dg-lite-frontend/dg-lite-frontend-ingress.yaml
   - ./thule/thule-ingress.yaml
   - ./thule/thule-secretmap.yaml
 patchesStrategicMerge:
-  - ./dglite-frontend/dglite-frontend-autoscaler.yaml
-  - ./dglite-frontend/dglite-frontend-configmap.yaml
-  - ./dglite-frontend/dglite-frontend-deployment.yaml
-  - ./dglite-frontend/dglite-frontend-nginx-config.yaml
+  - ./dg-lite-frontend/dg-lite-frontend-autoscaler.yaml
+  - ./dg-lite-frontend/dg-lite-frontend-configmap.yaml
+  - ./dg-lite-frontend/dg-lite-frontend-deployment.yaml
+  - ./dg-lite-frontend/dg-lite-frontend-nginx-config.yaml
   - ./thule/thule-autoscaler.yaml
   - ./thule/thule-configmap.yaml
   - ./thule/thule-deployment.yaml

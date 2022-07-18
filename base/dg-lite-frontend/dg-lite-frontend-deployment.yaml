@@ -44,7 +44,7 @@ spec:
             privileged: false
             capabilities:
               drop: ["ALL"]
-          image: 301922485551.dkr.ecr.ap-southeast-2.amazonaws.com/dglite-jobs-frontend:main
+          image: 301922485551.dkr.ecr.ap-southeast-2.amazonaws.com/dg-lite-jobs-frontend:main
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -61,7 +61,7 @@ spec:
               memory: "512Mi"
               cpu: "500m"
           volumeMounts:
-            - name: dglite-config
+            - name: dg-lite-config
               mountPath: /app/config.json
               subPath: config
               readOnly: true
@@ -80,7 +80,7 @@ spec:
       hostNetwork: false
       hostPID: false
       volumes:
-        - name: dglite-config
+        - name: dg-lite-config
           configMap:
             name: dg-lite-frontend-config
             defaultMode: 0644
@@ -90,5 +90,5 @@ spec:
           emptyDir: {}
         - name: nginx-config
           configMap:
-            name: dglite-nginx-config
+            name: dg-lite-nginx-config
             defaultMode: 0644

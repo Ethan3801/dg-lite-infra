@@ -13,11 +13,11 @@ spec:
         - name: dg-lite-frontend
           volumeMounts:
             - name: basic-auth
-              mountPath: /opt/dglite/.htpasswd
+              mountPath: /opt/dg-lite/.htpasswd
               subPath: htpasswd
               readOnly: true
       volumes:
         - name: basic-auth
           configMap:
-            name: dglite-basic-auth
+            name: dg-lite-basic-auth
             defaultMode: 0644

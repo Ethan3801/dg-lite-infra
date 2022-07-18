@@ -8,17 +8,17 @@ data:
         "server": {
             "trustProxy": true,
             "enableCsrf": true,
-            "corsOrigins": ["https://app.dglite.com"]
+            "corsOrigins": ["https://app.dg-lite.com"]
         },
         "database": {
             "rawMongo": {
-                "dbname": "dglite-db-01",
+                "dbname": "dg-lite-db-01",
                 "urlprefix": "mongodb://",
                 "username": "my-user",
                 "urls": [
-                    "dglite-db-01-0.dglite-db-01-svc.prod.svc:27017",
-                    "dglite-db-01-1.dglite-db-01-svc.prod.svc:27017",
-                    "dglite-db-01-2.dglite-db-01-svc.prod.svc:27017"
+                    "dg-lite-db-01-0.dg-lite-db-01-svc.prod.svc:27017",
+                    "dg-lite-db-01-1.dg-lite-db-01-svc.prod.svc:27017",
+                    "dg-lite-db-01-2.dg-lite-db-01-svc.prod.svc:27017"
                 ]
             }
         },
@@ -32,11 +32,11 @@ data:
                 }
             },
             "cognito": {
-                "domain": "dglite.auth.ap-southeast-2.amazoncognito.com",
+                "domain": "dg-lite.auth.ap-southeast-2.amazoncognito.com",
                 "clientId": "3s0j3l1p0kgrrnfaokeknqcnm4",
                 "poolId": "ap-southeast-2_V8oxrMtdT",
-                "redirectUri": "https://app.dglite.com/authCallback",
-                "logoutUri": "https://www.dglite.com",
+                "redirectUri": "https://app.dg-lite.com/authCallback",
+                "logoutUri": "https://www.dg-lite.com",
                 "region": "ap-southeast-2"
             }
         },
@@ -46,13 +46,13 @@ data:
         },
         "ses": {
             "region": "ap-southeast-2",
-            "verifiedIdentity": "noreply@dglite.com",
-            "externalAddress": "https://api.dglite.com"
+            "verifiedIdentity": "noreply@dg-lite.com",
+            "externalAddress": "https://api.dg-lite.com"
         },
         "s3": {
             "buckets": {
                 "profiledata": {
-                    "bucketName": "dglite-prod",
+                    "bucketName": "dg-lite-prod",
                     "credentials": {},
                     "region": "ap-southeast-2"
                 }

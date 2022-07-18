@@ -39,10 +39,10 @@ spec:
             - --source=service
             - --source=ingress
             - --source=contour-httpproxy
-            - --domain-filter=dglite.com
+            - --domain-filter=dg-lite.com
             - --provider=godaddy
             - --txt-prefix=external-dns.
-            - --txt-owner-id=eks-dglite-primary
+            - --txt-owner-id=eks-dg-lite-primary
             - --godaddy-api-key=<Your API Key>
             - --godaddy-api-secret=<Your API secret>
           resources:

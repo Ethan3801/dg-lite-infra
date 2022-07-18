@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - ../../base/
-  - ./dglite-db-01/dglitedb01-secret.yaml
+  - ./dg-lite-db-01/dg-lite-db01-secret.yaml
   - ./dg-lite-frontend/dg-lite-frontend-ingress.yaml
   - ./thule/thule-ingress.yaml
   - ./thule/thule-secretmap.yaml

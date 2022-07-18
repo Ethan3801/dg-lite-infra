@@ -8,17 +8,17 @@ data:
         "server": {
             "trustProxy": true,
             "enableCsrf": true,
-            "corsOrigins": ["https://app.dev.dglite.com", "https://dglite-aws.danward.me", "http://localhost:3000"]
+            "corsOrigins": ["https://app.dev.dg-lite.com", "https://dg-lite-aws.danward.me", "http://localhost:3000"]
         },
         "database": {
             "rawMongo": {
-                "dbname": "dglite-db-01",
+                "dbname": "dg-lite-db-01",
                 "urlprefix": "mongodb://",
                 "username": "my-user",
                 "urls": [
-                    "dglite-db-01-0.dglite-db-01-svc.dev-01.svc:27017",
-                    "dglite-db-01-1.dglite-db-01-svc.dev-01.svc:27017",
-                    "dglite-db-01-2.dglite-db-01-svc.dev-01.svc:27017"
+                    "dg-lite-db-01-0.dg-lite-db-01-svc.dev-01.svc:27017",
+                    "dg-lite-db-01-1.dg-lite-db-01-svc.dev-01.svc:27017",
+                    "dg-lite-db-01-2.dg-lite-db-01-svc.dev-01.svc:27017"
                 ]
             }
         },
@@ -32,11 +32,11 @@ data:
                 }
             },
             "cognito": {
-                "domain": "dglite-dev-01.auth.ap-southeast-2.amazoncognito.com",
+                "domain": "dg-lite-dev-01.auth.ap-southeast-2.amazoncognito.com",
                 "clientId": "58lmov1sjr6vb1mg5sm3fgu85n",
                 "poolId": "ap-southeast-2_waPVCWL1F",
-                "redirectUri": "https://app.dev.dglite.com/authCallback",
-                "logoutUri": "https://www.dglite.com",
+                "redirectUri": "https://app.dev.dg-lite.com/authCallback",
+                "logoutUri": "https://www.dg-lite.com",
                 "region": "ap-southeast-2"
             }
         },
@@ -46,13 +46,13 @@ data:
         },
         "ses": {
             "region": "ap-southeast-2",
-            "verifiedIdentity": "noreply@dglite.com",
-            "externalAddress": "https://api.dev.dglite.com"
+            "verifiedIdentity": "noreply@dg-lite.com",
+            "externalAddress": "https://api.dev.dg-lite.com"
         },
         "s3": {
             "buckets": {
                 "profiledata": {
-                    "bucketName": "dglite-dev-01",
+                    "bucketName": "dg-lite-dev-01",
                     "credentials": {},
                     "region": "ap-southeast-2"
                 }

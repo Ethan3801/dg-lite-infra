@@ -5,6 +5,6 @@ metadata:
 data:
   config: |
     {
-      "apiUrl": "https://api.dglite.com/api/v1",
-      "serverUri": "https://app.dglite.com"
+      "apiUrl": "https://api.dg-lite.com/api/v1",
+      "serverUri": "https://app.dg-lite.com"
     }
