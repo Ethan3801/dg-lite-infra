@@ -2,18 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    io.kompose.service: dg-lite
-  name: dg-lite
+    io.kompose.service: dg-lite-frontend
+  name: dg-lite-frontend
 spec:
   replicas: 3
   selector:
     matchLabels:
-      io.kompose.service: dg-lite
+      io.kompose.service: dg-lite-frontend
   template:
     metadata:
       labels:
-        io.kompose.service: dg-lite
-        app: dg-lite
+        io.kompose.service: dg-lite-frontend
+        app: dg-lite-frontend
         version: 1.0.0
       annotations:
         seccomp.security.alpha.kubernetes.io/allowedProfileNames: "docker/default,runtime/default"
@@ -27,7 +27,7 @@ spec:
           whenUnsatisfiable: ScheduleAnyway
           labelSelector:
             matchLabels:
-              io.kompose.service: dg-lite
+              io.kompose.service: dg-lite-frontend
       automountServiceAccountToken: false
       securityContext:
         runAsNonRoot: true
@@ -37,14 +37,14 @@ spec:
         runAsGroup: 1001
         fsGroup: 1001
       containers:
-        - name: dg-lite
+        - name: dg-lite-frontend
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
             privileged: false
             capabilities:
               drop: ["ALL"]
-          image: dglitetest/dg-lite
+          image: 301922485551.dkr.ecr.ap-southeast-2.amazonaws.com/dglite-jobs-frontend:main
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -61,7 +61,7 @@ spec:
               memory: "512Mi"
               cpu: "500m"
           volumeMounts:
-            - name: dg-lite-config
+            - name: dglite-config
               mountPath: /app/config.json
               subPath: config
               readOnly: true
@@ -80,9 +80,9 @@ spec:
       hostNetwork: false
       hostPID: false
       volumes:
-        - name: dg-lite-config
+        - name: dglite-config
           configMap:
-            name: dg-lite-config
+            name: dg-lite-frontend-config
             defaultMode: 0644
         - name: tmp-volume
           emptyDir: {}
@@ -90,5 +90,5 @@ spec:
           emptyDir: {}
         - name: nginx-config
           configMap:
-            name: dg-lite-nginx-config
+            name: dglite-nginx-config
             defaultMode: 0644
