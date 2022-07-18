@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dg-lite-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: dg-lite-frontend
+  template:
+    spec:
+      containers:
+        - name: dg-lite-frontend
+          volumeMounts:
+            - name: basic-auth
+              mountPath: /opt/dglite/.htpasswd
+              subPath: htpasswd
+              readOnly: true
+      volumes:
+        - name: basic-auth
+          configMap:
+            name: dglite-basic-auth
+            defaultMode: 0644

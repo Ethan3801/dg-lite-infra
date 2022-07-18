@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: thule
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    kubernetes.io/tls-acme: "true"
+    external-dns.alpha.kubernetes.io/hostname: api.dglite.com
+    external-dns.alpha.kubernetes.io/ttl: 10
+spec:
+  tls:
+    - secretName: thule
+      hosts:
+        - api.dglite.com
+  rules:
+    - host: api.dglite.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: thule
+                port:
+                  number: 3000

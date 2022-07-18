@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yaml
+  - ../../base/
+  - ./dglite-db-01/dglitedb01-secret.yaml
+  - ./dglite-frontend/dglite-frontend-basic-auth.yaml
+  - ./dglite-frontend/dglite-frontend-ingress.yaml
+  - ./thule/thule-ingress.yaml
+  - ./thule/thule-secretmap.yaml
+patchesStrategicMerge:
+  - ./dglite-frontend/dglite-frontend-autoscaler.yaml
+  - ./dglite-frontend/dglite-frontend-configmap.yaml
+  - ./dglite-frontend/dglite-frontend-deployment.yaml
+  - ./dglite-frontend/dglite-frontend-nginx-config.yaml
+  - ./thule/thule-autoscaler.yaml
+  - ./thule/thule-configmap.yaml
+  - ./thule/thule-deployment.yaml
+namespace: dev-01

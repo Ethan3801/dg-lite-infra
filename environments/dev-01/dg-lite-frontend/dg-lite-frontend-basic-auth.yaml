@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dg-lite-basic-auth
+data:
+  htpasswd: |
+    dg-lite:$apr1$yl1h24wf$CjOeiInpG/7NT0x5rKeyb0

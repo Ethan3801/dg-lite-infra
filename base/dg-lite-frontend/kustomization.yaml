@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - dg-lite-frontend-autoscaler.yaml
+  - dg-lite-frontend-configmap.yaml
+  - dg-lite-frontend-deployment.yaml
+  # - dg-lite-frontend-networkpolicy.yaml
+  - dg-lite-frontend-nginx-config.yaml
+  - dg-lite-frontend-service.yaml

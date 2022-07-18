@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: dg-lite
+  name: dg-lite
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      io.kompose.service: dg-lite
+  template:
+    metadata:
+      labels:
+        io.kompose.service: dg-lite
+        app: dg-lite
+        version: 1.0.0
+      annotations:
+        seccomp.security.alpha.kubernetes.io/allowedProfileNames: "docker/default,runtime/default"
+        apparmor.security.beta.kubernetes.io/allowedProfileNames: runtime/default
+        seccomp.security.alpha.kubernetes.io/defaultProfileName: runtime/default
+        apparmor.security.beta.kubernetes.io/defaultProfileName: runtime/default
+    spec:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              io.kompose.service: dg-lite
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+      containers:
+        - name: dg-lite
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            privileged: false
+            capabilities:
+              drop: ["ALL"]
+          image: dglitetest/dg-lite
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "50m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          volumeMounts:
+            - name: dg-lite-config
+              mountPath: /app/config.json
+              subPath: config
+              readOnly: true
+            - mountPath: /opt/bitnami/nginx/tmp/
+              name: tmp-volume
+              readOnly: false
+            - mountPath: /opt/bitnami/nginx/logs
+              name: logs-volume
+              readOnly: false
+            - name: nginx-config
+              mountPath: /opt/bitnami/nginx/conf/server_blocks/my_server_block.conf
+              subPath: default
+              readOnly: true
+      restartPolicy: Always
+      hostIPC: false
+      hostNetwork: false
+      hostPID: false
+      volumes:
+        - name: dg-lite-config
+          configMap:
+            name: dg-lite-config
+            defaultMode: 0644
+        - name: tmp-volume
+          emptyDir: {}
+        - name: logs-volume
+          emptyDir: {}
+        - name: nginx-config
+          configMap:
+            name: dg-lite-nginx-config
+            defaultMode: 0644

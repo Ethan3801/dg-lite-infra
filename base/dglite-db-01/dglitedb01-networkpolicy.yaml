@@ -1,0 +1,50 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-mongo-thule-in
+spec:
+  podSelector: {}
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: dglite-private
+          podSelector:
+            matchLabels:
+              io.kompose.service: thule
+      ports:
+        - port: 27017
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-mongo-crosstalk
+spec:
+  podSelector: {}
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              io.kompose.service: thule
+      ports:
+        - port: 27017
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: dglite-protected
+      ports:
+        - port: 27017
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-mongo-kubeapi-out
+spec:
+  podSelector: {}
+  egress:
+    - to:
+        - ipBlock:
+            cidr: 10.5.10.8/29
+      ports:
+        - port: 6443

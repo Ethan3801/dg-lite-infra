@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: thule-config
+data:
+  local.json: |
+    {
+        "server": {
+            "trustProxy": true,
+            "enableCsrf": true,
+            "corsOrigins": ["https://app.dev.dglite.com", "https://dglite-aws.danward.me", "http://localhost:3000"]
+        },
+        "database": {
+            "rawMongo": {
+                "dbname": "dglite-db-01",
+                "urlprefix": "mongodb://",
+                "username": "my-user",
+                "urls": [
+                    "dglite-db-01-0.dglite-db-01-svc.dev-01.svc:27017",
+                    "dglite-db-01-1.dglite-db-01-svc.dev-01.svc:27017",
+                    "dglite-db-01-2.dglite-db-01-svc.dev-01.svc:27017"
+                ]
+            }
+        },
+        "security": {
+            "oauth": {
+                "jwksClientConfig": {
+                    "jwksUri": "https://cognito-idp.ap-southeast-2.amazonaws.com/ap-southeast-2_waPVCWL1F/.well-known/jwks.json"
+                },
+                "options": {
+                    "iss": "https://cognito-idp.ap-southeast-2.amazonaws.com/ap-southeast-2_waPVCWL1F"
+                }
+            },
+            "cognito": {
+                "domain": "dglite-dev-01.auth.ap-southeast-2.amazoncognito.com",
+                "clientId": "58lmov1sjr6vb1mg5sm3fgu85n",
+                "poolId": "ap-southeast-2_waPVCWL1F",
+                "redirectUri": "https://app.dev.dglite.com/authCallback",
+                "logoutUri": "https://www.dglite.com",
+                "region": "ap-southeast-2"
+            }
+        },
+        "kms": {
+            "keyId": "23fd669f-d24c-4e6c-8476-60a6e780642e",
+            "region": "ap-southeast-2"
+        },
+        "ses": {
+            "region": "ap-southeast-2",
+            "verifiedIdentity": "noreply@dglite.com",
+            "externalAddress": "https://api.dev.dglite.com"
+        },
+        "s3": {
+            "buckets": {
+                "profiledata": {
+                    "bucketName": "dglite-dev-01",
+                    "credentials": {},
+                    "region": "ap-southeast-2"
+                }
+            }
+        }
+    }

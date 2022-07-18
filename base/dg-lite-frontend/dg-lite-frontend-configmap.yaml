@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dg-lite-config
+data:
+  config: |
+    {
+      "apiUrl": "https://api.dglite.com/api/v1",
+      "serverUri": "https://app.dglite.com"
+    }

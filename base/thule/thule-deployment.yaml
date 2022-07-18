@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: thule
+  name: thule
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      io.kompose.service: thule
+  template:
+    metadata:
+      labels:
+        io.kompose.service: thule
+        app: thule-backend
+        version: 1.0.0
+      annotations:
+        seccomp.security.alpha.kubernetes.io/allowedProfileNames: "docker/default,runtime/default"
+        apparmor.security.beta.kubernetes.io/allowedProfileNames: runtime/default
+        seccomp.security.alpha.kubernetes.io/defaultProfileName: runtime/default
+        apparmor.security.beta.kubernetes.io/defaultProfileName: runtime/default
+    spec:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              io.kompose.service: thule
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+        runAsUser: 65535
+        runAsGroup: 65535
+        fsGroup: 65535
+      containers:
+        - name: thule
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            privileged: false
+            capabilities:
+              drop: ["ALL"]
+          image: 301922485551.dkr.ecr.ap-southeast-2.amazonaws.com/dg-lite-backend:main
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          livenessProbe:
+            tcpSocket:
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 15
+          startupProbe:
+            httpGet:
+              path: /
+              port: 3000
+            failureThreshold: 30
+            periodSeconds: 10
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "200m"
+            limits:
+              memory: "512Mi"
+              cpu: "1000m"
+          volumeMounts:
+            - name: thule-config
+              mountPath: /app/config/local.json
+              subPath: local.json
+              readOnly: true
+      hostIPC: false
+      hostNetwork: false
+      hostPID: false
+      volumes:
+        - name: thule-config
+          configMap:
+            name: thule-config
+            defaultMode: 0755

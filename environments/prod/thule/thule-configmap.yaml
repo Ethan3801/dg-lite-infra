@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: thule-config
+data:
+  local.json: |
+    {
+        "server": {
+            "trustProxy": true,
+            "enableCsrf": true,
+            "corsOrigins": ["https://app.dglite.com"]
+        },
+        "database": {
+            "rawMongo": {
+                "dbname": "dglite-db-01",
+                "urlprefix": "mongodb://",
+                "username": "my-user",
+                "urls": [
+                    "dglite-db-01-0.dglite-db-01-svc.prod.svc:27017",
+                    "dglite-db-01-1.dglite-db-01-svc.prod.svc:27017",
+                    "dglite-db-01-2.dglite-db-01-svc.prod.svc:27017"
+                ]
+            }
+        },
+        "security": {
+            "oauth": {
+                "jwksClientConfig": {
+                    "jwksUri": "https://cognito-idp.ap-southeast-2.amazonaws.com/ap-southeast-2_V8oxrMtdT/.well-known/jwks.json"
+                },
+                "options": {
+                    "iss": "https://cognito-idp.ap-southeast-2.amazonaws.com/ap-southeast-2_V8oxrMtdT"
+                }
+            },
+            "cognito": {
+                "domain": "dglite.auth.ap-southeast-2.amazoncognito.com",
+                "clientId": "3s0j3l1p0kgrrnfaokeknqcnm4",
+                "poolId": "ap-southeast-2_V8oxrMtdT",
+                "redirectUri": "https://app.dglite.com/authCallback",
+                "logoutUri": "https://www.dglite.com",
+                "region": "ap-southeast-2"
+            }
+        },
+        "kms": {
+            "keyId": "8cd39549-ac70-44fc-9b51-7d744ee733e4",
+            "region": "ap-southeast-2"
+        },
+        "ses": {
+            "region": "ap-southeast-2",
+            "verifiedIdentity": "noreply@dglite.com",
+            "externalAddress": "https://api.dglite.com"
+        },
+        "s3": {
+            "buckets": {
+                "profiledata": {
+                    "bucketName": "dglite-prod",
+                    "credentials": {},
+                    "region": "ap-southeast-2"
+                }
+            }
+        }
+    }

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: thule
+  name: thule
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: thule
+  template:
+    spec:
+      containers:
+        - name: thule
+          volumeMounts:
+            - name: secrets
+              mountPath: "/var/secrets/"
+              readOnly: true
+      volumes:
+        - name: secrets
+          secret:
+            secretName: thule-secretmap

@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-dns
+spec:
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: external-dns
+  template:
+    metadata:
+      labels:
+        app: external-dns
+      annotations:
+        seccomp.security.alpha.kubernetes.io/allowedProfileNames: "docker/default,runtime/default"
+        apparmor.security.beta.kubernetes.io/allowedProfileNames: runtime/default
+        seccomp.security.alpha.kubernetes.io/defaultProfileName: runtime/default
+        apparmor.security.beta.kubernetes.io/defaultProfileName: runtime/default
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+        runAsUser: 65535
+        runAsGroup: 65535
+        fsGroup: 65535
+      serviceAccountName: external-dns
+      containers:
+        - name: external-dns
+          image: bitnami/external-dns:0.11.0
+          imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            privileged: false
+            capabilities:
+              drop: ["ALL"]
+          args:
+            - --source=service
+            - --source=ingress
+            - --source=contour-httpproxy
+            - --domain-filter=dglite.com
+            - --provider=godaddy
+            - --txt-prefix=external-dns.
+            - --txt-owner-id=eks-dglite-primary
+            - --godaddy-api-key=<Your API Key>
+            - --godaddy-api-secret=<Your API secret>
+          resources:
+            requests:
+              memory: "96Mi"
+              cpu: "10m"
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
+      restartPolicy: Always
+      hostIPC: false
+      hostNetwork: false
+      hostPID: false

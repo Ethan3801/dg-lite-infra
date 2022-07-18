@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  cluster.name: "dglite-primary"
+  logs.region: "ap-southeast-2"
+kind: ConfigMap
+metadata:
+  name: cluster-info
+  namespace: amazon-cloudwatch

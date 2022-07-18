@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dglite-frontend
+spec:
+  selector:
+    matchLabels:
+      io.kompose.service: dglite-frontend
+  template:
+    spec:
+      containers:
+        - name: dg-lite-frontend
+          image: 301922485551.dkr.ecr.ap-southeast-2.amazonaws.com/dglite-frontend:production
