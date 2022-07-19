@@ -1,7 +1,7 @@
 apiVersion: mongodbcommunity.mongodb.com/v1
 kind: MongoDBCommunity
 metadata:
-  name: dg-lite-db-01
+  name: dg-lite-backend
 spec:
   members: 3
   type: ReplicaSet
@@ -19,7 +19,7 @@ spec:
               whenUnsatisfiable: ScheduleAnyway
               labelSelector:
                 matchLabels:
-                  app: dg-lite-db-01-svc
+                  app: dg-lite-backend-svc
           containers:
             - name: "mongodb-agent"
               resources:
@@ -56,14 +56,14 @@ spec:
     - name: my-user
       db: admin
       passwordSecretRef:
-        name: dg-litedb01-password
+        name: dg-lite-backend-password
       roles:
         - name: clusterAdmin
           db: admin
         - name: userAdminAnyDatabase
           db: admin
         - name: readWrite
-          db: dg-lite-db-01
+          db: dg-lite-backend
       scramCredentialsSecretName: my-scram
   additionalMongodConfig:
     storage.wiredTiger.engineConfig.journalCompressor: zlib

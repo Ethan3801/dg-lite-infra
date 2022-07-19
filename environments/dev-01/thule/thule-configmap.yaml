@@ -12,13 +12,13 @@ data:
         },
         "database": {
             "rawMongo": {
-                "dbname": "dg-lite-db-01",
+                "dbname": "dg-lite-backend",
                 "urlprefix": "mongodb://",
                 "username": "my-user",
                 "urls": [
-                    "dg-lite-db-01-0.dg-lite-db-01-svc.dev-01.svc:27017",
-                    "dg-lite-db-01-1.dg-lite-db-01-svc.dev-01.svc:27017",
-                    "dg-lite-db-01-2.dg-lite-db-01-svc.dev-01.svc:27017"
+                    "dg-lite-backend-0.dg-lite-backend-svc.dev-01.svc:27017",
+                    "dg-lite-backend-1.dg-lite-backend-svc.dev-01.svc:27017",
+                    "dg-lite-backend-2.dg-lite-backend-svc.dev-01.svc:27017"
                 ]
             }
         },
