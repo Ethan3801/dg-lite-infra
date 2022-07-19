@@ -44,7 +44,7 @@ spec:
             privileged: false
             capabilities:
               drop: ["ALL"]
-          image: 301922485551.dkr.ecr.ap-southeast-2.amazonaws.com/dg-lite-jobs-frontend:main
+          image: harbor.danward.me/novofinity/dg-lite-frontend:latest@sha256:f447bb4d12984fb0af9e80b4f1c3501203115a7f90a22e84c51bf23a4ae43afb
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
